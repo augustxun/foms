@@ -1,4 +1,4 @@
-package com.itheima.reggie.controller.impl;
+package com.itheima.reggie.controller;
 
 
 import cn.hutool.json.JSONUtil;
@@ -87,8 +87,15 @@ public class DishController {
     }
 
     @GetMapping("/list")
-    public R<List<DishDto>> list(Long categoryId, Integer status) {
+    public R<List<DishDto>> list(Dish dish) {
+
         // 从 Redis 中获取缓存数据
+        Long categoryId = dish.getCategoryId();
+        Integer status = dish.getStatus();
+
+        if (categoryId == null || status == null) {
+            return R.error("查询失败");
+        }
         String dishListKey = RedisConstants.CACHE_DISH + categoryId + status;
         Long listSize = stringRedisTemplate.opsForList().size(dishListKey);
         List<String> dishDtoJsonList = stringRedisTemplate.opsForList().range(dishListKey, 0, listSize);

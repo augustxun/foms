@@ -1,4 +1,4 @@
-package com.itheima.reggie.controller.impl;
+package com.itheima.reggie.controller;
 
 
 import com.itheima.reggie.common.R;

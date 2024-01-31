@@ -1,4 +1,4 @@
-package com.itheima.reggie.controller.impl;
+package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.itheima.reggie.common.BaseContext;
