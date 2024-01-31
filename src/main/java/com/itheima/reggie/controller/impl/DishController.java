@@ -1,6 +1,8 @@
 package com.itheima.reggie.controller.impl;
 
 
+import cn.hutool.json.JSONUtil;
+import com.alibaba.druid.support.json.JSONUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.databind.util.BeanUtil;
@@ -12,10 +14,13 @@ import com.itheima.reggie.entity.DishFlavor;
 import com.itheima.reggie.service.CategoryService;
 import com.itheima.reggie.service.DishFlavorService;
 import com.itheima.reggie.service.DishService;
+import com.itheima.reggie.utils.RedisConstants;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +36,9 @@ public class DishController {
     @Resource
     private DishFlavorService dishFlavorService;
 
+
+    @Resource
+    StringRedisTemplate stringRedisTemplate;
     /**
      * 将菜品管理页面分页查询
      * @param page
@@ -79,7 +87,19 @@ public class DishController {
     }
 
     @GetMapping("/list")
-    public R<List<DishDto>> getByCategoryId(Long categoryId, Long status) {
+    public R<List<DishDto>> list(Long categoryId, Integer status) {
+        // 从 Redis 中获取缓存数据
+        String dishListKey = RedisConstants.CACHE_DISH + categoryId + status;
+        Long listSize = stringRedisTemplate.opsForList().size(dishListKey);
+        List<String> dishDtoJsonList = stringRedisTemplate.opsForList().range(dishListKey, 0, listSize);
+       if (dishDtoJsonList != null && listSize != 0) { // 从缓存中可以读出数据
+           List<DishDto> dishDtoList = new ArrayList<>();
+           for (String dishJson : dishDtoJsonList) {
+               dishDtoList.add(JSONUtil.toBean(dishJson, DishDto.class));
+           }
+           return R.success(dishDtoList);
+       }
+        // 缓存中没有数据, 到数据库中查询
         LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Dish::getCategoryId, categoryId).eq(Dish::getStatus, 1);
         queryWrapper.orderByDesc(Dish::getUpdateTime);
@@ -92,6 +112,12 @@ public class DishController {
             dishDto.setFlavors(dishFlavorService.list(queryWrapper2));
             return dishDto;
         }).collect((Collectors.toList()));
+//        把该数据添加到缓存中去
+        dishDtoJsonList = new ArrayList<>();
+        for (DishDto dishDto : dishDtoList) {
+            dishDtoJsonList.add(JSONUtil.toJsonStr(dishDto));
+        }
+        stringRedisTemplate.opsForList().rightPushAll(dishListKey, dishDtoJsonList);
         return R.success(dishDtoList);
     }
 
