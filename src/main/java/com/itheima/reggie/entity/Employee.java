@@ -6,6 +6,9 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * 员工实体
+ */
 @Data
 public class Employee implements Serializable {
 
@@ -23,20 +26,20 @@ public class Employee implements Serializable {
 
     private String sex;
 
-    private String idNumber; /*身份证号码*/
+    private String idNumber;//身份证号码
 
     private Integer status;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime; // 在插入时填充字段
+    @TableField(fill = FieldFill.INSERT) //插入时填充字段
+    private LocalDateTime createTime;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime; // 在插入和更新时填充字段
+    @TableField(fill = FieldFill.INSERT_UPDATE) //插入和更新时填充字段
+    private LocalDateTime updateTime;
 
-    @TableField(fill = FieldFill.INSERT)
-    private Long createUser; // 在插入时填充字段
+    @TableField(fill = FieldFill.INSERT) //插入时填充字段
+    private Long createUser;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE) //插入和更新时填充字段
     private Long updateUser;
 
 }

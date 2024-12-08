@@ -4,21 +4,22 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.R;
 import com.itheima.reggie.entity.Category;
-import com.itheima.reggie.entity.Employee;
 import com.itheima.reggie.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * 分类管理
+ */
 @RestController
 @RequestMapping("/category")
 @Slf4j
 public class CategoryController {
-    @Resource
+    @Autowired
     private CategoryService categoryService;
 
     /**
@@ -27,9 +28,10 @@ public class CategoryController {
      * @return
      */
     @PostMapping
-    public R<String> save(@RequestBody Category category) {
+    public R<String> save(@RequestBody Category category){
+        log.info("category:{}",category);
         categoryService.save(category);
-        return R.success("成功了");
+        return R.success("新增分类成功");
     }
 
     /**
@@ -39,43 +41,47 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/page")
-    public R<Page> page(int page, int pageSize) {
-        log.info("page:{}, pageSize:{}", page, pageSize);
-        // 分页构造器件
-        Page<Category> pageInfo = new Page<>(page, pageSize);
-        // 条件构造起
+    public R<Page> page(int page,int pageSize){
+        //分页构造器
+        Page<Category> pageInfo = new Page<>(page,pageSize);
+        //条件构造器
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        // 添加排序条件
+        //添加排序条件，根据sort进行排序
         queryWrapper.orderByAsc(Category::getSort);
-        // 执行查询
-        categoryService.page(pageInfo, queryWrapper);
+
+        //分页查询
+        categoryService.page(pageInfo,queryWrapper);
         return R.success(pageInfo);
     }
 
     /**
      * 根据id删除分类
-     * @param ids
+     * @param id
      * @return
      */
     @DeleteMapping
-    public R<String> delete(Long ids) {
-        // 判断当前分类是否关联菜品或套餐
-        categoryService.remove(ids);
-        return R.success("删除成功");
+    public R<String> delete(Long id){
+        log.info("删除分类，id为：{}",id);
+
+        //categoryService.removeById(id);
+        categoryService.remove(id);
+
+        return R.success("分类信息删除成功");
     }
 
     /**
-     * 修改分类
+     * 根据id修改分类信息
      * @param category
      * @return
      */
     @PutMapping
-    public R<String> update(@RequestBody Category category) {
-        log.info("修改分类信息:{}", category);
+    public R<String> update(@RequestBody Category category){
+        log.info("修改分类信息：{}",category);
+
         categoryService.updateById(category);
+
         return R.success("修改分类信息成功");
     }
-
 
     /**
      * 根据条件查询分类数据
@@ -83,14 +89,15 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/list")
-    public R<List<Category>> getByType(Category category) { // 如果加了@RequestBody就传不进来
-        // 条件构造器件
+    public R<List<Category>> list(Category category){
+        //条件构造器
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        // 添加条件
-        queryWrapper.like(category.getType() != null, Category::getType, category.getType());
+        //添加条件
+        queryWrapper.eq(category.getType() != null,Category::getType,category.getType());
+        //添加排序条件
         queryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
-        List<Category> list = categoryService.list(queryWrapper);
 
+        List<Category> list = categoryService.list(queryWrapper);
         return R.success(list);
     }
 }
