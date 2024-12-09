@@ -2,6 +2,8 @@ FOMS (Food Order Management System) is a comprehensive solution designed to stre
 
 ## Guide
 
-1. Start the Backend Application
+1. Run `foms_db.sql`
 
-2. Enter the link: localhost:8083/backend/index.html
+2. Start the Backend Application
+
+3. Enter the link: localhost:8083/backend/index.html
