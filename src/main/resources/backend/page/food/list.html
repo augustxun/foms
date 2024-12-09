@@ -87,7 +87,6 @@
             </el-table-column>
             <el-table-column
                     label="Operations"
-                    width="160"
                     align="center"
             >
                 <template slot-scope="scope">
@@ -97,7 +96,7 @@
                                 type="text"
                                 size="small"
                                 class="blueBug"
-                                @click="addSetMeal(scope.row.id)"
+                                @click="addFoodtype(scope.row.id)"
                         >
                             Modify
                         </el-button>

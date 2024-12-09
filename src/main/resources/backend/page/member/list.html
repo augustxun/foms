@@ -60,7 +60,7 @@
             ></el-table-column>
             <el-table-column label="Account Status">
                 <template slot-scope="scope">
-                    {{ String(scope.row.status) === '0' ? 'Disabled' : 'Enabled' }}
+                    {{ String(scope.row.status) === '0' ? 'Inactive' : 'Active' }}
                 </template>
             </el-table-column>
             <el-table-column
