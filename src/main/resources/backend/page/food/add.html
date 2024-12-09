@@ -60,22 +60,22 @@
       >
         <div>
           <el-form-item
-            label="菜品名称:"
+            label="Name:"
             prop="name"
           >
             <el-input
               v-model="ruleForm.name"
-              placeholder="请填写菜品名称"
+              placeholder="Search the dish..."
               maxlength="20"
             />
           </el-form-item>
           <el-form-item
-            label="菜品分类:"
+            label="Category:"
             prop="categoryId"
           >
             <el-select
               v-model="ruleForm.categoryId"
-              placeholder="请选择菜品分类"
+              placeholder="Select dish category"
             >
               <el-option v-for="(item,index) in dishList" :key="index" :label="item.name" :value="item.id" />
             </el-select>
@@ -83,23 +83,23 @@
         </div>
         <div>
           <el-form-item
-            label="菜品价格:"
+            label="Dish Price:"
             prop="price"
           >
             <el-input
               v-model="ruleForm.price"
-              placeholder="请设置菜品价格"
+              placeholder="Set the price amount"
             />
           </el-form-item>
         </div>
-        <el-form-item label="口味做法配置:">
+        <el-form-item label="Flavor:">
           <el-form-item>
             <div class="flavorBox">
               <span
                 v-if="dishFlavors.length == 0"
                 class="addBut"
                 @click="addFlavore"
-              > + 添加口味</span>
+              > + Add new flavor</span>
               <div
                 v-if="dishFlavors.length != 0"
                 class="flavor"

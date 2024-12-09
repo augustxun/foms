@@ -28,7 +28,7 @@
               type="primary"
               @click="addClass('meal')"
       >
-        + Add Meal Category
+        + Add Combo Category
       </el-button>
     </div>
     <el-table
@@ -42,10 +42,10 @@
       /></el-table-column>
       <el-table-column
               prop="type"
-              label="Category Type"
+              label="Type"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row.type == '1' ? 'Dish Category': 'Meal Category' }}</span>
+          <span>{{ scope.row.type == '1' ? 'Dish': 'Combo' }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -58,7 +58,7 @@
       </el-table-column>
       <el-table-column
               prop="sort"
-              label="Sort Order"
+              label="Rank"
       /></el-table-column>
       <el-table-column
               label="Actions"
