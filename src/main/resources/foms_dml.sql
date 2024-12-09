@@ -123,10 +123,6 @@ CREATE TABLE `employee` (
   UNIQUE KEY `idx_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='员工信息';
 
--- ----------------------------
--- Records of employee
--- ----------------------------
-INSERT INTO `employee` VALUES ('1', '管理员', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '13812312312', '1', '110101199001010047', '1', '2021-05-06 17:20:07', '2021-05-10 02:24:09', '1', '1');
 
 -- ----------------------------
 -- Table structure for orders
@@ -150,9 +146,6 @@ CREATE TABLE `orders` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单表';
 
--- ----------------------------
--- Records of orders
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -171,9 +164,6 @@ CREATE TABLE `order_detail` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='订单明细表';
 
--- ----------------------------
--- Records of order_detail
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for setmeal
@@ -197,10 +187,6 @@ CREATE TABLE `setmeal` (
   UNIQUE KEY `idx_setmeal_name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='套餐';
 
--- ----------------------------
--- Records of setmeal
--- ----------------------------
-INSERT INTO `setmeal` VALUES ('1415580119015145474', '1413386191767674881', '儿童套餐A计划', '4000.00', '1', '', '', '61d20592-b37f-4d72-a864-07ad5bb8f3bb.jpg', '2021-07-15 15:52:55', '2021-07-15 15:52:55', '1415576781934608386', '1415576781934608386', '0');
 
 -- ----------------------------
 -- Table structure for setmeal_dish
@@ -241,9 +227,6 @@ CREATE TABLE `shopping_cart` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='购物车';
 
--- ----------------------------
--- Records of shopping_cart
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for user
