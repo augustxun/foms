@@ -29,10 +29,6 @@ public class Category implements Serializable {
     private String name;
 
 
-    //顺序
-    private Integer sort;
-
-
     //创建时间
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

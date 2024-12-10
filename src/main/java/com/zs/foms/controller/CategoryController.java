@@ -50,8 +50,6 @@ public class CategoryController {
         Page<Category> pageInfo = new Page<>(page,pageSize);
         //条件构造器
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        //添加排序条件，根据sort进行排序
-        queryWrapper.orderByAsc(Category::getSort);
 
         //分页查询
         categoryService.page(pageInfo,queryWrapper);
@@ -101,8 +99,6 @@ public class CategoryController {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
         //添加条件
         queryWrapper.eq(category.getType() != null,Category::getType,category.getType());
-        //添加排序条件
-        queryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
 
         List<Category> list = categoryService.list(queryWrapper);
         return R.success(list);

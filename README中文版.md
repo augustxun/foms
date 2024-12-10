@@ -6,4 +6,4 @@
 
 3. 在浏览器中输入链接: localhost:8083/backend/index.html
 
-Swagger文档：访问 localhost:8083/swagger-ui/index.html
+Swagger文档：访问 localhost:8083/doc.html
