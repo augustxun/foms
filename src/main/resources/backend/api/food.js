@@ -8,11 +8,12 @@ const getDishPage = (params) => {
 }
 
 // 删除接口
-const deleteDish = (ids) => {
+const deleteDish = (id) => {
+  console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"+id);
   return $axios({
     url: '/dish',
     method: 'delete',
-    params: { ids }
+    params: { id }
   })
 }
 
@@ -73,10 +74,10 @@ const commonDownload = (params) => {
 }
 
 // 起售停售---批量起售停售接口
-const dishStatusByStatus = (params) => {
-  return $axios({
-    url: `/dish/status/${params.status}`,
-    method: 'post',
-    params: { ids: params.id }
-  })
-}
+// const dishStatusByStatus = (params) => {
+//   return $axios({
+//     url: `/dish/status/${params.status}`,
+//     method: 'post',
+//     params: { ids: params.id }
+//   })
+// }

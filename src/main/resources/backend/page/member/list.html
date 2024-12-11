@@ -90,6 +90,16 @@
                 </template>
             </el-table-column>
         </el-table>
+<!--        <el-pagination-->
+<!--                class="pageList"-->
+<!--                :page-sizes="[10, 20, 30, 40]"-->
+<!--                :page-size="pageSize"-->
+<!--                layout="total, sizes, prev, pager, next, jumper"-->
+<!--                :total="counts"-->
+<!--                :current-page.sync="page"-->
+<!--                @size-change="handleSizeChange"-->
+<!--                @current-change="handleCurrentChange"-->
+<!--        ></el-pagination>-->
         <el-pagination
                 class="pageList"
                 :page-sizes="[10, 20, 30, 40]"
@@ -99,7 +109,15 @@
                 :current-page.sync="page"
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-        ></el-pagination>
+        >
+            <template #prev>Previous</template>
+            <template #next>Next</template>
+            <template #jumper>
+                Go to <input class="el-pagination__editor" type="number" v-model="page" />
+                page
+            </template>
+        </el-pagination>
+
     </div>
 </div>
 <!-- 开发环境版本，包含了有帮助的命令行警告 -->
@@ -144,7 +162,7 @@
                         this.counts = res.data.total
                     }
                 }).catch(err => {
-                    this.$message.error('请求出错了：' + err)
+                    this.$message.error('Request error:' + err)
                 })
             },
             handleQuery() {
@@ -171,7 +189,7 @@
             statusHandle(row) {
                 this.id = row.id
                 this.status = row.status
-                this.$confirm('Confirm to adjust the status of this account?', '提示', {
+                this.$confirm('Confirm to adjust the status of this account?', 'Tips', {
                     'confirmButtonText': 'Confirm',
                     'cancelButtonText': 'Cancel',
                     'type': 'warning'

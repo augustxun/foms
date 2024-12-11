@@ -3,6 +3,7 @@ package com.zs.foms.controller;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zs.foms.common.R;
+import com.zs.foms.dto.DishDto;
 import com.zs.foms.dto.SetmealDto;
 import com.zs.foms.entity.Category;
 import com.zs.foms.entity.Setmeal;
@@ -10,6 +11,7 @@ import com.zs.foms.service.CategoryService;
 import com.zs.foms.service.SetmealDishService;
 import com.zs.foms.service.SetmealService;
 import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,14 @@ public class SetmealController {
         setmealService.saveWithDish(setmealDto);
 
         return R.success("新增套餐成功");
+    }
+    @GetMapping("/{id}")
+    @Operation(summary = "根据id查询套餐")
+    public R<SetmealDto> get(@PathVariable Long id){
+        SetmealDto setmealDto = setmealService.getSetmealById(id);
+        System.out.println("----------------------controller");
+        System.out.println(setmealDto);
+        return R.success(setmealDto);
     }
 
     /**
@@ -125,5 +135,18 @@ public class SetmealController {
         List<Setmeal> list = setmealService.list(queryWrapper);
 
         return R.success(list);
+    }
+
+
+    @PutMapping
+    @Operation(summary = "修改meal信息")
+    public R<String> update(@RequestBody SetmealDto setmealDto){
+        log.info(setmealDto.toString());
+        System.out.println("--------------------"+setmealDto.getStatus());
+        System.out.println("--------------------"+setmealDto.getId());
+
+        setmealService.update(setmealDto);
+
+        return R.success("修改meal成功");
     }
 }

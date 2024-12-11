@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- Include Styles -->
+    <link rel="stylesheet" href="../../plugins/element-ui/index.css"/>
+    <link rel="stylesheet" href="../../styles/common.css"/>
+    <link rel="stylesheet" href="../../styles/page.css"/>
+</head>
+<body>
+<div class="dashboard-container" id="category-app">
+    <div id="mychart" style="width: 900px; height: 500px;"></div>
+</div>
+
+<!-- Include ECharts -->
+<script src="../category/echarts.min.js"></script>
+<!-- Include Vue -->
+<script src="../../plugins/vue/vue.js"></script>
+<!-- Include Component Library -->
+<script src="../../plugins/element-ui/index.js"></script>
+<!-- Include Axios -->
+<script src="../../plugins/axios/axios.min.js"></script>
+<script src="../../js/request.js"></script>
+<script src="../../api/category.js"></script>
+
+<script>
+    new Vue({
+        el: '#category-app',
+        data() {
+            return {
+                action: '',
+                counts: 0,
+                page: 1,
+                pageSize: 10,
+                tableData: [],
+                type: '',
+                classData: {
+                    'title': 'Add Dish Category',
+                    'dialogVisible': false,
+                    'categoryId': '',
+                    'name': '',
+                    sort: ''
+                }
+            }
+        },
+        mounted() {
+            // 初始化 ECharts 图表
+            this.initChart();
+        },
+        methods: {
+            initChart() {
+                const chartDom = document.getElementById("mychart");
+                if (chartDom) {
+                    const dtc = echarts.init(chartDom);
+
+                    // 配置项
+                    const option = {
+                        xAxis: {
+                            type: "category",
+                            data: ["6", "7", "8", "9", "10", "11"],
+                        },
+                        yAxis: {
+                            type: "value",
+                            name: "Order quantity",
+                        },
+                        series: [
+                            {
+                                name: "平均温度",
+                                type: "line",
+                                data: [5, 11.2, 15, 18, 19, 20],
+                            },
+                        ],
+                    };
+
+                    // 设置图表配置
+                    dtc.setOption(option);
+                } else {
+                    console.error("Chart DOM not found!");
+                }
+            },
+        }
+    });
+</script>
+</body>
+</html>

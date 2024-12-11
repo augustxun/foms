@@ -244,7 +244,7 @@
                     'type': 'warning'
                 }).then(() => {
                     // 起售停售---批量起售停售接口
-                    dishStatusByStatus(this.dishState).then(res => {
+                    editDish({'id': params.id, 'status': params.status}).then(res => {
                         if (res.code === 1) {
                             this.$message.success('菜品状态已经更改成功！')
                             this.handleQuery()

@@ -17,7 +17,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -117,6 +119,43 @@ public class DishController {
         return R.success(dishDto);
     }
 
+
+    @GetMapping("/chart")
+    @Operation(summary = "根据分类返回菜品数量")
+    public R<Map<String, Integer>> getDishChart(){
+
+        // 从数据库获取所有的 dish 数据
+        List<Dish> dishList = dishService.list();
+
+        // 从数据库获取所有的 category 数据
+        List<Category> categoryList = categoryService.list();
+
+        // 将 category 转换为 Map，key 为 category_id，value 为分类名称
+        Map<Long, String> categoryMap = categoryList.stream()
+                .collect(Collectors.toMap(Category::getId, Category::getName));
+
+        // 统计每种分类的菜品数量
+        Map<Long, Integer> categoryCountMap = dishList.stream()
+                .collect(Collectors.groupingBy(Dish::getCategoryId, Collectors.reducing(0, e -> 1, Integer::sum)));
+
+        // 将 category_id 替换为分类名称
+        Map<String, Integer> result = new HashMap<>();
+        for (Map.Entry<Long, Integer> entry : categoryCountMap.entrySet()) {
+            String categoryName = categoryMap.get(entry.getKey());
+            if (categoryName != null) {
+                result.put(categoryName, entry.getValue());
+            }
+        }
+
+        System.out.println("-----------------chart");
+        System.out.println(result);
+        // 返回结果
+        return R.success(result);
+
+    }
+
+
+
     /**
      * 修改菜品
      * @param dishDto
@@ -126,10 +165,33 @@ public class DishController {
     @Operation(summary = "修改菜品信息")
     public R<String> update(@RequestBody DishDto dishDto){
         log.info(dishDto.toString());
+        System.out.println("--------------------"+dishDto.getStatus());
+        System.out.println("--------------------"+dishDto.getId());
 
         dishService.updateWithFlavor(dishDto);
 
         return R.success("修改菜品成功");
+    }
+
+    @PostMapping("/status/{id}")
+    @Operation(summary = "修改状态")
+//    public R<String> dishStatus(@RequestBody DishDto dishDto){
+//        log.info(dishDto.toString());
+//
+//        dishService.dishStatus(dishDto);
+//
+//        return R.success("修改状态成功");
+//    }
+    public R<String> dishStatus(@PathVariable Long id, @RequestParam String status) {
+        log.info("Received id: {}, status: {}", id, status);
+
+        // 调用服务逻辑，更新状态
+        DishDto dishDto = new DishDto();
+        dishDto.setId(id);
+        dishDto.setStatus(Integer.valueOf(status));
+        dishService.dishStatus(dishDto);
+
+        return R.success("修改状态成功");
     }
 
     /**
@@ -192,6 +254,18 @@ public class DishController {
         }).collect(Collectors.toList());
 
         return R.success(dishDtoList);
+    }
+
+    @DeleteMapping
+    @Operation(summary = "根据id删除")
+    public R<String> delete(@RequestParam Long id){
+        System.out.println("---------------controller:"+id);
+        log.info("删除Dish，id为：{}",id);
+
+        //categoryService.removeById(id);
+        dishService.remove(id);
+
+        return R.success("Dish删除成功");
     }
 
 }

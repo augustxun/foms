@@ -74,7 +74,7 @@
           <div class="navbar">
             <div class="head-lable">
               <span v-if="goBackFlag" class="goBack" @click="goBack()"
-                ><img src="images/icons/btn_back@2x.png" alt="" /> 返回</span
+                ><img src="images/icons/btn_back@2x.png" alt="" /> Go Back</span
               >
               <span>{{headTitle}}</span>
             </div>
@@ -151,7 +151,19 @@
                     name: 'Order',
                     url: 'page/order/list.html',
                     icon: 'icon-order'
-                  }
+                  },
+                  {
+                    id: '7',
+                    name: 'Chart',
+                    url: 'page/chart/list2.html',
+                    icon: 'icon-order'
+                  },
+              {
+                id: '8',
+                name: 'Chart2',
+                url: 'page/chart/list3.html',
+                icon: 'icon-order'
+              }
               //   ],
               // },
             ],

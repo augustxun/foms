@@ -58,6 +58,8 @@ public class DishServiceImpl extends ServiceImpl<DishMapper,Dish> implements Dis
 
         DishDto dishDto = new DishDto();
         BeanUtils.copyProperties(dish,dishDto);
+        System.out.println("xxxxxxxxxxxxxxxxdish");
+        System.out.println(dishDto);
 
         //查询当前菜品对应的口味信息，从dish_flavor表查询
         LambdaQueryWrapper<DishFlavor> queryWrapper = new LambdaQueryWrapper<>();
@@ -89,5 +91,18 @@ public class DishServiceImpl extends ServiceImpl<DishMapper,Dish> implements Dis
         }).collect(Collectors.toList());
 
         dishFlavorService.saveBatch(flavors);
+    }
+    @Override
+    @Transactional
+    public void remove(Long id) {
+//        System.out.println("ididid:"+id);
+        this.removeById(id);
+    }
+
+    @Override
+    @Transactional
+    public void dishStatus(DishDto dishDto){
+        this.updateById(dishDto);
+
     }
 }

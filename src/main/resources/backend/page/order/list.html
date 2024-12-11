@@ -63,7 +63,7 @@
       <el-button type="primary" class="search-btn" @click="init">Search</el-button>
     </div>
     <el-table :data="tableData" stripe class="tableBox">
-      <el-table-column prop="number" label="Order Number" min-width="110"></el-table-column>
+      <el-table-column prop="number" label="Order Number" min-width="80"></el-table-column>
       <el-table-column prop="status" label="Order Status">
         <template slot-scope="{ row }">
           <span>{{ getOrderType(row) }}</span>
@@ -115,11 +115,11 @@
   >
     <div class="info-box">
       <div class="item-box">
-        <span class="label">Order Number:</span>
+        <span class="label" style="width: 80px">Order Number:</span>
         <span class="des">{{ diaForm.number }}</span>
       </div>
       <div class="item-box">
-        <span class="label">Order Status:</span>
+        <span class="label" >Order Status:</span>
         <span class="des">{{ getOrderType(diaForm) }}</span>
       </div>
       <div class="item-box">

@@ -63,7 +63,8 @@ public class CategoryController {
      */
     @DeleteMapping
     @Operation(summary = "根据id删除")
-    public R<String> delete(Long id){
+    public R<String> delete(@RequestParam Long id){
+        System.out.println("---------------controller:"+id);
         log.info("删除分类，id为：{}",id);
 
         //categoryService.removeById(id);

@@ -3,13 +3,17 @@ package com.zs.foms.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zs.foms.common.CustomException;
+import com.zs.foms.dto.DishDto;
 import com.zs.foms.dto.SetmealDto;
+import com.zs.foms.entity.Dish;
+import com.zs.foms.entity.DishFlavor;
 import com.zs.foms.entity.Setmeal;
 import com.zs.foms.entity.SetmealDish;
 import com.zs.foms.mapper.SetmealMapper;
 import com.zs.foms.service.SetmealDishService;
 import com.zs.foms.service.SetmealService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +27,27 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper,Setmeal> imple
 
     @Autowired
     private SetmealDishService setmealDishService;
+
+
+    public SetmealDto getSetmealById(Long id) {
+        //查询菜品基本信息，从dish表查询
+        Setmeal setmeal = this.getById(id);
+        System.out.println("----------------imlp");
+        System.out.println(setmeal);
+
+        SetmealDto setmealDto = new SetmealDto();
+        BeanUtils.copyProperties(setmeal,setmealDto);
+
+        //查询当前菜品对应的口味信息，从dish_flavor表查询
+        LambdaQueryWrapper<SetmealDish> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SetmealDish::getDishId,setmeal.getId());
+        List<SetmealDish> dish = setmealDishService.list(queryWrapper);
+        setmealDto.setSetmealDishes(dish);
+        System.out.println("----------------imlp");
+        System.out.println(setmealDto);
+        return setmealDto;
+    }
+
 
     /**
      * 新增套餐，同时需要保存套餐和菜品的关联关系
@@ -69,5 +94,9 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper,Setmeal> imple
         lambdaQueryWrapper.in(SetmealDish::getSetmealId,ids);
         //删除关系表中的数据----setmeal_dish
         setmealDishService.remove(lambdaQueryWrapper);
+    }
+
+    public void update(SetmealDto setmealDto){
+        this.updateById(setmealDto);
     }
 }
