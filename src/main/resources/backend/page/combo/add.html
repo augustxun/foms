@@ -192,9 +192,9 @@
             <el-form-item label="Dish Included:" class="setmealFood">
               <el-form-item>
                 <div class="addDish">
-                  <span v-if="dishTable.length == 0" class="addBut" @click="openAddDish"> + 添加菜品</span>
+                  <span v-if="dishTable.length == 0" class="addBut" @click="openAddDish" style="background: #57068c; border-color: #57068c; color: #fff"> + Add Dish</span>
                   <div v-if="dishTable.length != 0" class="content">
-                    <div class="addBut" style="margin-bottom: 20px" @click="openAddDish">+ 添加菜品</div>
+                    <div class="addBut" style="margin-bottom: 20px" @click="openAddDish" style="background: #57068c; border-color: #57068c; color: #fff">+ Add Dish</div>
                     <div class="table">
                       <el-table :data="dishTable" style="width: 100%">
                         <el-table-column prop="name" label="Name" width="180" align="center"></el-table-column>
@@ -247,7 +247,7 @@
           <div class="subBox address">
             <el-form-item>
               <el-button @click="goBack()"> Cancel </el-button>
-              <el-button type="primary" @click="submitForm('ruleForm', false)"> Save </el-button>
+              <el-button type="primary" @click="submitForm('ruleForm', false)" style="background: #57068c; border-color: #57068c; color: #fff"> Save </el-button>
               <el-button
                 v-if="actionType == 'add'"
                 type="primary"
@@ -552,7 +552,7 @@
                   addSetmeal(prams)
                     .then((res) => {
                       if (res.code === 1) {
-                        this.$message.success('套餐添加成功！')
+                        this.$message.success('Add success！')
                         if (!st) {
                           this.goBack()
                         } else {

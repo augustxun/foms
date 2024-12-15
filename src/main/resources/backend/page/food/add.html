@@ -96,16 +96,17 @@
           <el-form-item>
             <div class="flavorBox">
               <span
+                      style="background: #57068c; border-color: #57068c; color: #fff"
                 v-if="dishFlavors.length == 0"
                 class="addBut"
-                @click="addFlavore"
+                @click="addFlavore" style="background: #57068c; border-color: #57068c; color: #fff"
               > + Add new flavor</span>
               <div
                 v-if="dishFlavors.length != 0"
                 class="flavor"
               >
                 <div class="title">
-                  <span>口味名（3个字内）</span><span>口味标签（输入标签回车添加）</span>
+                  <span>your favor</span><span>口味标签（输入标签回车添加）</span>
                 </div>
                 <div class="cont">
                   <div
@@ -126,7 +127,7 @@
                               v-model="item.name"
                               type="text"
                               style="width: 100%"
-                              placeholder="请输入口味"
+                              placeholder="please input"
                               @focus="selectFlavor(true,index)"
                               @blur="outSelect(false,index)"
                               @input="inputHandle(index)"
@@ -172,7 +173,7 @@
                   class="addBut"
                   @click="addFlavore"
                 >
-                  添加口味
+                  Add Favor
                 </div>
               </div>
             </div>
@@ -223,13 +224,14 @@
         <div class="subBox address">
           <el-form-item>
             <el-button @click="goBack()">
-              取消
+              Cancel
             </el-button>
             <el-button
               type="primary"
+              style="background: #57068c; border-color: #57068c; color: #fff"
               @click="submitForm('ruleForm')"
             >
-              保存
+              Save
             </el-button>
             <el-button
               v-if="actionType == 'add'"
@@ -237,7 +239,7 @@
               class="continue"
               @click="submitForm('ruleForm','goAnd')"
             >
-              保存并继续添加菜品
+              Save and Continue Adding
             </el-button>
           </el-form-item>
         </div>

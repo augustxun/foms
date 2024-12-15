@@ -60,7 +60,7 @@
                       :default-time="['00:00:00', '23:59:59']"
                       style="width: 400px;margin-left: 20px;"
       ></el-date-picker>
-      <el-button type="primary" class="search-btn" @click="init">Search</el-button>
+      <el-button type="primary" class="search-btn" @click="init" style="background: #57068c; border-color: #57068c; color: #fff">Search</el-button>
     </div>
     <el-table :data="tableData" stripe class="tableBox">
       <el-table-column prop="number" label="Order Number" min-width="80"></el-table-column>
