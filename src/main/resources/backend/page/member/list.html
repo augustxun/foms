@@ -104,12 +104,14 @@
                 class="pageList"
                 :page-sizes="[10, 20, 30, 40]"
                 :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="counts"
                 :current-page.sync="page"
+                layout="prev, pager, next"
+                :total="counts"
+                prev-text="Previous"
+                next-text="Next"
+                :popper-class="'custom-pagination-tooltip'"
                 @size-change="handleSizeChange"
-                @current-change="handleCurrentChange"
-        >
+                @current-change="handleCurrentChange"></el-pagination>
             <template #prev>Previous</template>
             <template #next>Next</template>
             <template #jumper>

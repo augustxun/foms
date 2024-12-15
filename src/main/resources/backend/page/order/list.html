@@ -99,11 +99,13 @@
             :page-sizes="[10, 20, 30, 40]"
             :page-size="pageSize"
             :current-page.sync="page"
-            layout="total, sizes, prev, pager, next, jumper"
+            layout="prev, pager, next"
             :total="counts"
+            prev-text="Previous"
+            next-text="Next"
+            :popper-class="'custom-pagination-tooltip'"
             @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-    ></el-pagination>
+            @current-change="handleCurrentChange"></el-pagination>
   </div>
 
   <!-- View dialog -->
@@ -251,7 +253,11 @@
       handleSizeChange (val) {
         this.pageSize = val
             this.init()
-          }
+          },
+      handleCurrentChange(val) {
+        this.page = val
+        this.init()
+      }
         }
       })
     </script>

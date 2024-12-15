@@ -123,12 +123,14 @@
                 class="pageList"
                 :page-sizes="[10, 20, 30, 40]"
                 :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper"
-                :total="counts"
-                @size-change="handleSizeChange"
                 :current-page.sync="page"
-                @current-change="handleCurrentChange"
-        ></el-pagination>
+                layout="prev, pager, next"
+                :total="counts"
+                prev-text="Previous"
+                next-text="Next"
+                :popper-class="'custom-pagination-tooltip'"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"></el-pagination>
     </div>
 </div>
 <!-- 开发环境版本，包含了有帮助的命令行警告 -->
