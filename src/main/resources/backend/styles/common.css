@@ -3794,6 +3794,8 @@ input[type="number"] {
 .el-time-panel__btn.confirm {
   font-weight: 800;
   color: #ffc200;
+  background: #57068c; border-color: #57068c;
+  color: #fff
 }
 .el-time-range-picker {
   width: 354px;

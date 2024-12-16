@@ -191,13 +191,13 @@
                     window.parent.menuHandle({
                         id: '4',
                         url: '/backend/page/food/add.html',
-                        name: '添加菜品'
+                        name: 'Add dishes'
                     }, true)
                 } else {
                     window.parent.menuHandle({
                         id: '4',
                         url: '/backend/page/food/add.html?id=' + st,
-                        name: '修改菜品'
+                        name: 'Modify dishes'
                     }, true)
                 }
             },
@@ -209,13 +209,13 @@
                         return this.$message.error('请选择删除对象')
                     }
                 }
-                this.$confirm('确认删除该菜品, 是否继续?', '确定删除', {
-                    'confirmButtonText': '确定',
-                    'cancelButtonText': '取消',
+                this.$confirm('Confirm to delete the dish?', 'Confirm to delete', {
+                    'confirmButtonText': 'Confirm',
+                    'cancelButtonText': 'Cancel',
                 }).then(() => {
                     deleteDish(type === '批量' ? this.checkList.join(',') : id).then(res => {
                         if (res.code === 1) {
-                            this.$message.success('删除成功！')
+                            this.$message.success('Delete successfully！')
                             this.handleQuery()
                         } else {
                             this.$message.error(res.msg || '操作失败')
@@ -241,15 +241,15 @@
                     params.status = row.status ? '0' : '1'
                 }
                 this.dishState = params
-                this.$confirm('确认更改该菜品状态?', '提示', {
-                    'confirmButtonText': '确定',
-                    'cancelButtonText': '取消',
+                this.$confirm('Are you sure to change the status of this dish?', 'Tips', {
+                    'confirmButtonText': 'Confirm',
+                    'cancelButtonText': 'Cancel',
                     'type': 'warning'
                 }).then(() => {
                     // 起售停售---批量起售停售接口
                     editDish({'id': params.id, 'status': params.status}).then(res => {
                         if (res.code === 1) {
-                            this.$message.success('菜品状态已经更改成功！')
+                            this.$message.success('The status of the dish has been successfully changed!')
                             this.handleQuery()
                         } else {
                             this.$message.error(res.msg || '操作失败')

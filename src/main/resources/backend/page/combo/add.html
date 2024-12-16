@@ -79,7 +79,7 @@
         padding: 15px;
       }
       .addDishCon .leftCont .tabBut {
-        width: 110px;
+        width: 300px;
       }
       .addDishCon .leftCont .tabBut span {
         display: block;
@@ -175,17 +175,17 @@
         >
           <div>
             <el-form-item label="Name:" prop="name" >
-              <el-input v-model="ruleForm.name" placeholder="请填写套餐名称" maxlength="20"/>
+              <el-input v-model="ruleForm.name" placeholder="Please fill in the combo name" maxlength="20"/>
             </el-form-item>
             <el-form-item label="Category:" prop="idType">
-              <el-select v-model="ruleForm.idType" placeholder="请选择套餐分类" @change="$forceUpdate()">
+              <el-select v-model="ruleForm.idType" placeholder="Please select the combo category" @change="$forceUpdate()">
                 <el-option v-for="(item, index) in setMealList" :key="index" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
           </div>
           <div>
             <el-form-item label="Price:" prop="price">
-              <el-input v-model="ruleForm.price" placeholder="请设置套餐价格" />
+              <el-input v-model="ruleForm.price" placeholder="Please set the combo price" />
             </el-form-item>
           </div>
           <div>
@@ -241,7 +241,7 @@
           </div>
           <div class="address">
             <el-form-item label="Description:">
-              <el-input v-model="ruleForm.description" type="textarea" :rows="3" placeholder="套餐描述，最长200字" maxlength="200"/>
+              <el-input v-model="ruleForm.description" type="textarea" :rows="3" placeholder="Combo description, maximum length of 200 words" maxlength="200"/>
             </el-form-item>
           </div>
           <div class="subBox address">
@@ -270,7 +270,7 @@
         <el-input
           v-model="value"
           class="seachDish"
-          placeholder="请输入菜品名称进行搜索"
+          placeholder="Please enter the dish name to search"
           style="width: 250px"
           size="small"
           clearable
@@ -284,8 +284,10 @@
             <div
               v-show="seachKey.trim() == ''"
               class="tabBut"
+              style="width: 500px"
             >
               <span
+                      style="width: 120px"
                 v-for="(item, index) in dishType"
                 :key="index"
                 :class="{act:index == keyInd}"
@@ -295,7 +297,7 @@
             <div class="tabList">
               <div class="table">
                 <div v-if="dishAddList.length == 0" style="padding-left:10px">
-                  暂无菜品!
+                    No dishes available
                 </div>
                 <el-checkbox-group
                   v-if="dishAddList.length > 0"
@@ -313,7 +315,7 @@
                     >
                       <div class="item">
                         <span style="flex: 3;text-align: left">{{ item.dishName }}</span>
-                        <span>{{ item.status == 0 ? '停售' : '在售' }}</span>
+                        <span>{{ item.status == 0 ? 'Unavailable' : 'Available' }}</span>
                         <span>{{ Number(item.price)/100 }}</span>
                       </div>
                     </el-checkbox>
@@ -324,7 +326,7 @@
           </div>
           <div class="ritCont">
             <div class="tit">
-              已选菜品({{ checkedList.length }})
+                Selected dishes({{ checkedList.length }})
             </div>
             <div class="items">
               <div
@@ -349,8 +351,8 @@
         </div>
         
         <span slot="footer" class="dialog-footer">
-          <el-button @click="handleClose">取 消</el-button>
-          <el-button type="primary" @click="addTableList">确 定</el-button>
+          <el-button @click="handleClose">Cancel</el-button>
+          <el-button type="primary" @click="addTableList" style="background: #57068c; border-color: #57068c; color: #fff">Save</el-button>
         </span>
       </el-dialog>
     </div>
@@ -405,12 +407,12 @@
             return {
               name: {
                 required: true,
-                message: '请输入套餐名称',
+                message: 'Please enter the Combo name',
                 trigger: 'blur',
               },
               idType: {
                 required: true,
-                message: '请选择套餐分类',
+                message: 'Please select the Combo category',
                 trigger: 'change',
               },
               price: {
@@ -418,17 +420,17 @@
                 // 'message': '请输入套餐价格',
                 validator: (rules, value, callback) => {
                     if (!value) {
-                      callback(new Error('请填写菜品价格'))
+                      callback(new Error('Please fill in the price'))
                     } else {
                       const reg = /^\d+(\.\d{0,2})?$/
                       if (reg.test(value)) {
                         if(value < 10000){
                           callback()
                         }else{
-                          callback(new Error('菜品价格小于10000'))
+                          callback(new Error('The price is less than 10000'))
                         }
                       } else {
-                        callback(new Error('菜品价格格式只能为数字,且最多保留两位小数'))
+                        callback(new Error('The price format of dishes can only be numbers'))
                       }
                     }
                   },
@@ -470,7 +472,7 @@
                 this.ruleForm.idType = res.data.categoryId
                 // this.ruleForm.password = ''
               } else {
-                this.$message.error(res.msg || '操作失败')
+                this.$message.error(res.msg || 'Operation failed')
               }
             })
           },
@@ -483,7 +485,7 @@
               if (res.code === 1) {
                 this.setMealList = res.data.map((obj) => ({ ...obj, idType: obj.id }))
               } else {
-                this.$message.error(res.msg || '操作失败')
+                this.$message.error(res.msg || 'Operation failed')
               }
             })
           },
@@ -539,11 +541,11 @@
                 prams.status = this.ruleForm ? 1 : 0
                 prams.categoryId = this.ruleForm.idType
                 if(prams.setmealDishes.length < 1){
-                  this.$message.error('请选择菜品！')
+                  this.$message.error('Please select dishes！')
                   return 
                 }
                 if(!this.imageUrl){
-                  this.$message.error('请上传套餐图片')
+                  this.$message.error('Please upload combo pictures')
                   return 
                 }
                 // delete prams.dishList
@@ -574,25 +576,25 @@
                           this.imageUrl = ''
                         }
                       } else {
-                        this.$message.error(res.msg || '操作失败')
+                        this.$message.error(res.msg || 'operation failed')
                       }
                     })
                     .catch((err) => {
-                      this.$message.error('请求出错了：' + err)
+                      this.$message.error('Request error：' + err)
                     })
                 } else {
                   delete prams.updateTime
                   editSetmeal(prams)
                     .then((res) => {
                       if (res.code === 1) {
-                        this.$message.success('套餐修改成功！')
+                        this.$message.success('Combo modification successful！')
                         this.goBack()
                       } else {
-                        this.$message.error(res.msg || '操作失败')
+                        this.$message.error(res.msg || 'operation failed')
                       }
                     })
                     .catch((err) => {
-                      this.$message.error('请求出错了：' + err)
+                      this.$message.error('Request error：' + err)
                     })
                 }
               } else {
@@ -615,12 +617,12 @@
               const suffix = file.name.split('.')[1]
               const size = file.size / 1024 / 1024 < 2
               if(['png','jpeg','jpg'].indexOf(suffix) < 0){
-                this.$message.error('上传图片只支持 png、jpeg、jpg 格式！')
+                this.$message.error('Uploading images only supports PNG, JPEG, and JPG formats！')
                 this.$refs.upload.clearFiles()
                 return false
               }
               if(!size){
-                this.$message.error('上传文件大小不能超过 2MB!')
+                this.$message.error('The uploaded file size cannot exceed 2MB!')
                 return false
               }
               return file
@@ -631,7 +633,7 @@
               {
                 id: '5',
                 url: '/backend/page/combo/list.html',
-                name: '套餐管理',
+                name: 'Combo management',
               },
               false
             )

@@ -92,12 +92,12 @@ public class OrderController {
         // List to hold the results
         List<Integer> monthlyOrderCounts = new ArrayList<>();
         ArrayList<Integer> arr = new ArrayList<>();
-        arr.add(1);
-        arr.add(3);
-        arr.add(5);
-        arr.add(7);
-        arr.add(9);
-        arr.add(11);
+        arr.add(30);
+        arr.add(20);
+        arr.add(26);
+        arr.add(12);
+        arr.add(29);
+        arr.add(31);
 
         return R.success(arr);
     }

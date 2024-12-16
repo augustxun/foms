@@ -46,6 +46,14 @@
       }
 
   </style>
+    <style scoped>
+        /* 隐藏默认的“上传图片”文本 */
+        .avatar-uploader .el-upload__text {
+            //display: none;
+            text-decoration-color: #8c939d;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
    <div class="addBrand-container" id="food-add-app">
@@ -106,7 +114,7 @@
                 class="flavor"
               >
                 <div class="title">
-                  <span>your favor</span><span>口味标签（输入标签回车添加）</span>
+                  <span>your favor</span><span>Taste label (enter label and press enter to add)</span>
                 </div>
                 <div class="cont">
                   <div
@@ -166,12 +174,13 @@
                     <span
                       class="delFlavor delBut non"
                       @click="delFlavor(index)"
-                    >删除</span>
+                    >Delete</span>
                   </div>
                 </div>
                 <div
                   class="addBut"
                   @click="addFlavore"
+                  style="background: #57068c; border-color: #57068c; color: #fff"
                 >
                   Add Favor
                 </div>
@@ -205,6 +214,7 @@
                 class="el-icon-plus avatar-uploader-icon"
               ></i>
             </el-upload>
+
           </el-form-item>
         </div>
         <div class="address">
@@ -403,12 +413,25 @@
           // 获取口味列表
           getFlavorListHand () {
             // flavor flavorData
-            this.dishFlavorsData = [
-              {'name':'甜味','value':['无糖','少糖','半糖','多糖','全糖']},
-              {'name':'温度','value':['热饮','常温','去冰','少冰','多冰']},
-              {'name':'忌口','value':['不要葱','不要蒜','不要香菜','不要辣']},
-              {'name':'辣度','value':['不辣','微辣','中辣','重辣']}
-            ]
+              this.dishFlavorsData = [
+                  {
+                      'name': 'Sweetness',
+                      'value': ['No Sugar', 'Less Sugar', 'Half Sugar', 'More Sugar', 'Full Sugar']
+                  },
+                  {
+                      'name': 'Temperature',
+                      'value': ['Hot', 'Room Temperature', 'No Ice', 'Less Ice', 'More Ice']
+                  },
+                  {
+                      'name': 'Preferences',
+                      'value': ['No Onion', 'No Garlic', 'No Cilantro', 'No Spicy']
+                  },
+                  {
+                      'name': 'Spiciness',
+                      'value': ['Not Spicy', 'Mild Spicy', 'Medium Spicy', 'Very Spicy']
+                  }
+              ];
+
           },
 
           selectFlavor(st,index){

@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>瑞吉外卖管理端</title>
+  <title>Takeaway System</title>
   <link rel="shortcut icon" href="../../favicon.ico">
   <!-- 引入样式 -->
   <link rel="stylesheet" href="../../plugins/element-ui/index.css" />
@@ -74,14 +74,14 @@
         loginRules() {
           const validateUsername = (rule, value, callback) => {
             if (value.length < 1 ) {
-              callback(new Error('请输入用户名'))
+              callback(new Error('enter user name'))
             } else {
               callback()
             }
           }
           const validatePassword = (rule, value, callback) => {
             if (value.length < 6) {
-              callback(new Error('密码必须在6位以上'))
+              callback(new Error('The password must be at least 6 digits long'))
             } else {
               callback()
             }

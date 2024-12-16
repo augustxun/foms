@@ -21,7 +21,7 @@ mybatis-plus:
 
 reggie:
   path:
-    /Users/augustxun/projects/reggie_take_out/src/main/resources/image/
+    /Users/April/NYU/Java_Final/foms/src/main/resources/image
 
 redis:
   host: 127.0.0.1

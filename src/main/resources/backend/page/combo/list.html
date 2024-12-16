@@ -200,13 +200,13 @@
                     window.parent.menuHandle({
                         id: '5',
                         url: '/backend/page/combo/add.html',
-                        name: '添加套餐'
+                        name: 'Add Combo'
                     }, true)
                 } else {
                     window.parent.menuHandle({
                         id: '5',
                         url: '/backend/page/combo/add.html?id=' + st,
-                        name: '修改套餐'
+                        name: 'Modify Combo'
                     }, true)
                 }
             },
@@ -218,13 +218,13 @@
                         return this.$message.error('请选择删除对象')
                     }
                 }
-                this.$confirm('确定删除该套餐, 是否继续?', '确定删除', {
-                    'confirmButtonText': '确定',
-                    'cancelButtonText': '取消',
+                this.$confirm('Are you sure to delete this Combo?', 'Confirm to delete', {
+                    'confirmButtonText': 'Confirm',
+                    'cancelButtonText': 'Cancel',
                 }).then(() => {
                     deleteSetmeal(type === '批量' ? this.checkList.join(',') : id).then(res => {
                         if (res.code === 1) {
-                            this.$message.success('删除成功！')
+                            this.$message.success('Delete successfully!')
                             this.handleQuery()
                         } else {
                             this.$message.error(res.msg || '操作失败')
@@ -249,15 +249,15 @@
                     params.ids = row.id
                     params.status = row.status ? '0' : '1'
                 }
-                this.$confirm('确认更改该套餐状态?', '提示', {
-                    'confirmButtonText': '确定',
-                    'cancelButtonText': '取消',
+                this.$confirm('Are you sure to change the status of this combo?', 'Tips', {
+                    'confirmButtonText': 'Confirm',
+                    'cancelButtonText': 'Cancel',
                     'type': 'warning'
                 }).then(() => {
                     // 起售停售---批量起售停售接口
                     editSetmeal({'id': params.ids, 'status': params.status}).then(res => {
                         if (res.code === 1) {
-                            this.$message.success('套餐状态已经更改成功！')
+                            this.$message.success('The Combo status has been successfully changed!')
                             this.handleQuery()
                         } else {
                             this.$message.error(res.msg || '操作失败')
