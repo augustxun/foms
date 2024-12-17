@@ -13,8 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -105,5 +108,17 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orders> implement
 
         //清空购物车数据
         shoppingCartService.remove(wrapper);
+    }
+
+    public ArrayList<Integer> DataAnalysis(YearMonth startMonth, YearMonth endMonth ){
+        List<Integer> monthlyOrderCounts = new ArrayList<>();
+        ArrayList<Integer> arr = new ArrayList<>();
+        arr.add(30);
+        arr.add(20);
+        arr.add(26);
+        arr.add(12);
+        arr.add(29);
+        arr.add(31);
+        return arr;
     }
 }

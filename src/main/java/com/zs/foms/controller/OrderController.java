@@ -90,15 +90,8 @@ public class OrderController {
         YearMonth startMonth = YearMonth.of(2023, 6);
         YearMonth endMonth = YearMonth.of(2023, 11);
         // List to hold the results
-        List<Integer> monthlyOrderCounts = new ArrayList<>();
-        ArrayList<Integer> arr = new ArrayList<>();
-        arr.add(30);
-        arr.add(20);
-        arr.add(26);
-        arr.add(12);
-        arr.add(29);
-        arr.add(31);
 
+        ArrayList<Integer> arr = orderService.DataAnalysis(startMonth, endMonth);
         return R.success(arr);
     }
 

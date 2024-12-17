@@ -70,7 +70,7 @@ CREATE TABLE `dish` (
   `name` varchar(64) COLLATE utf8_bin NOT NULL COMMENT '菜品名称',
   `category_id` bigint(20) NOT NULL COMMENT '菜品分类id',
   `price` decimal(10,2) DEFAULT NULL COMMENT '菜品价格',
-  `code` varchar(64) COLLATE utf8_bin NOT NULL COMMENT '商品码',
+  `code` varchar(64) COLLATE utf8_bin COMMENT '商品码',
   `image` varchar(200) COLLATE utf8_bin NOT NULL COMMENT '图片',
   `description` varchar(400) COLLATE utf8_bin DEFAULT NULL COMMENT '描述信息',
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '0 停售 1 起售',
